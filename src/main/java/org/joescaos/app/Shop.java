@@ -1,31 +1,34 @@
 package org.joescaos.app;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import org.joescaos.data.Drink;
+import org.joescaos.data.Food;
 import org.joescaos.data.Product;
+import org.joescaos.data.ProductManager;
 import org.joescaos.data.Rating;
 
 public class Shop {
 
   public static void main(String[] args) {
-    Product p1 = new Product();
-
-    System.out.printf(
-        "%d %s %s %s %s%n",
-        p1.getId(), p1.getName(), p1.getPrice(), p1.getDiscount(), p1.getRating().getStars());
-
-    Product p2 = new Product(102, "Cake", BigDecimal.valueOf(1.98));
-    System.out.printf(
-        "%d %s %s %s %s%n",
-        p2.getId(), p2.getName(), p2.getPrice(), p2.getDiscount(), p2.getRating().getStars());
-
-    Product p3 = new Product(103, "Coffee", BigDecimal.valueOf(1.98), Rating.FIVE_STAR);
-    System.out.printf(
-        "%d %s %s %s %s%n",
-        p3.getId(), p3.getName(), p3.getPrice(), p3.getDiscount(), p3.getRating().getStars());
-
-    Product p5 = p2.applyRating(Rating.THREE_STAR);
-    System.out.printf(
-            "%d %s %s %s %s%n",
-            p5.getId(), p5.getName(), p5.getPrice(), p5.getDiscount(), p5.getRating().getStars());
+    ProductManager productManager = new ProductManager();
+    Product p1 = productManager.createProduct(101, "Tea", BigDecimal.valueOf(1.99), Rating.NOT_RATED);
+    productManager.printProductReport();
+    p1 = productManager.reviewProduct(p1, Rating.FOUR_STAR, "Nice coup of tea");
+    productManager.printProductReport();
+//    Product p2 = productManager.createProduct(102, "Cake", BigDecimal.valueOf(1.98), Rating.FOUR_STAR,
+//            LocalDate.now().plusDays(2));
+//
+//    Product p3 = productManager.createProduct(103, "Coffee", BigDecimal.valueOf(1.98), Rating.FIVE_STAR);
+//
+//    Product p5 = p2.applyRating(Rating.THREE_STAR);
+//
+//    System.out.println(p1);
+//    System.out.println(p2);
+//    System.out.println(p3);
+//    System.out.println(p5);
+//    System.out.println(p2.equals(p5));
+//    System.out.println(p2.getBestBefore());
+//    System.out.println(p3.getBestBefore());
   }
 }
