@@ -6,7 +6,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public abstract sealed class Product permits Food, Drink {
+public abstract sealed class Product implements Rateable<Product>
+        permits Food, Drink {
 
   private final int id;
   private final String name;

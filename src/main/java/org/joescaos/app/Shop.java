@@ -2,6 +2,8 @@ package org.joescaos.app;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Locale;
+
 import org.joescaos.data.Drink;
 import org.joescaos.data.Food;
 import org.joescaos.data.Product;
@@ -11,7 +13,7 @@ import org.joescaos.data.Rating;
 public class Shop {
 
   public static void main(String[] args) {
-    ProductManager productManager = new ProductManager();
+    ProductManager productManager = new ProductManager(Locale.US);
     Product p1 = productManager.createProduct(101, "Tea", BigDecimal.valueOf(1.99), Rating.NOT_RATED);
     productManager.printProductReport();
     p1 = productManager.reviewProduct(p1, Rating.FOUR_STAR, "Nice coup of tea");
