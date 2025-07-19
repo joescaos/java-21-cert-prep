@@ -17,6 +17,10 @@ public class Shop {
     Product p1 = productManager.createProduct(101, "Tea", BigDecimal.valueOf(1.99), Rating.NOT_RATED);
     productManager.printProductReport();
     p1 = productManager.reviewProduct(p1, Rating.FOUR_STAR, "Nice coup of tea");
+    p1 = productManager.reviewProduct(p1, Rating.TWO_STAR, "Rather weak tea");
+    p1 = productManager.reviewProduct(p1, Rating.FOUR_STAR, "Fine tea");
+    p1 = productManager.reviewProduct(p1, Rating.FOUR_STAR, "Good tea");
+    p1 = productManager.reviewProduct(p1, Rating.THREE_STAR, "Just add some lemon");
     productManager.printProductReport();
 //    Product p2 = productManager.createProduct(102, "Cake", BigDecimal.valueOf(1.98), Rating.FOUR_STAR,
 //            LocalDate.now().plusDays(2));
