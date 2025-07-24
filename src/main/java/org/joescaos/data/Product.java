@@ -67,7 +67,7 @@ public abstract sealed class Product implements Rateable<Product>
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof Product product)) return false;
-    return id == product.id && Objects.equals(name, product.name);
+    return id == product.id;
   }
 
   @Override
