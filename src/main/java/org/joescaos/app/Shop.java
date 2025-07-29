@@ -41,10 +41,14 @@ public class Shop {
     productManagerSP.reviewProduct(104, Rating.FIVE_STAR, "Que buena porcion de pastel");
     productManagerSP.reviewProduct(104, Rating.TWO_STAR, "muy caro");
     //productManagerSP.printProductReport(104);
-    productManager.printProducts((p1, p2) -> p2.getRating().ordinal() - p1.getRating().ordinal());
-    productManagerSP.printProducts((p1, p2) -> p2.getPrice().compareTo(p1.getPrice()));
-    productManager.printProducts((p1, p2) -> p2.getBestBefore().compareTo(p1.getBestBefore()));
-
-
+    productManager.printProducts(p -> p.getPrice().floatValue() < 2,(p1, p2) -> p2.getRating().ordinal() - p1.getRating().ordinal());
+    productManagerSP.printProducts(p -> p.getPrice().floatValue() < 1, (p1, p2) -> p2.getPrice().compareTo(p1.getPrice()));
+    productManager.printProducts(p -> p.getPrice().floatValue() < 0, (p1, p2) -> p2.getBestBefore().compareTo(p1.getBestBefore()));
+    productManager.getDiscounts().forEach(
+            (rating, discount) ->
+                    System.out.println(rating + "\t" + discount));
+    productManagerSP.getDiscounts().forEach(
+            (rating, discount) ->
+                    System.out.println(rating + "\t" + discount));
   }
 }
