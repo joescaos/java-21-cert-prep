@@ -1,5 +1,7 @@
 package org.joescaos.data;
 
+import org.joescaos.exception.ProductManagerException;
+
 import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -16,9 +18,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ProductManager {
+
+  private static final Logger LOGGER = Logger.getLogger(ProductManager.class.getName());
 
   private Map<Product, List<Review>> products = new HashMap<>();
   private ResourceFormatter formatter;
@@ -69,7 +75,12 @@ public class ProductManager {
   }
 
   public Product reviewProduct(int id, Rating rating, String comments) {
-    return reviewProduct(findProductById(id),rating, comments);
+      try {
+          return reviewProduct(findProductById(id),rating, comments);
+      } catch (ProductManagerException e) {
+          LOGGER.log(Level.INFO, e.getMessage());
+          return null;
+      }
   }
 
   public void printProductReport(Product product) {
@@ -93,7 +104,11 @@ public class ProductManager {
   }
 
   public void printProductReport(int id) {
-    printProductReport(findProductById(id));
+      try {
+          printProductReport(findProductById(id));
+      } catch (ProductManagerException e) {
+          LOGGER.log(Level.INFO, e.getMessage());
+      }
   }
 
   public void printProducts(Predicate<Product> predicate, Comparator<Product> sorter) {
@@ -107,11 +122,13 @@ public class ProductManager {
     System.out.println(txt);
   }
 
-  public Product findProductById(int id) {
+  public Product findProductById(int id) throws ProductManagerException{
     return products.keySet()
             .stream()
             .filter(product -> product.getId() == id)
-            .findFirst().orElse(null);
+            .findFirst()
+            .orElseThrow(() ->
+                    new ProductManagerException("Product with "+ id + " Not Found"));
   }
 
   public void changeLocale(String languageTag) {
