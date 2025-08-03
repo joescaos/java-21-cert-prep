@@ -15,7 +15,7 @@ public class Shop {
 
     ExecutorService es = Executors.newFixedThreadPool(3);
 
-    Runnable r = () -> {
+    Runnable r1 = () -> {
         productManager.createProduct(101, "Cake", BigDecimal.valueOf(19.0), Rating.NOT_RATED, LocalDate.now().plusDays(15));
         productManager.createProduct(102, "CupCake", BigDecimal.valueOf(12.0), Rating.NOT_RATED, LocalDate.now().plusDays(10));
         productManager.createProduct(103, "Tea", BigDecimal.valueOf(10.0), Rating.NOT_RATED);
@@ -31,8 +31,21 @@ public class Shop {
 
     };
 
+      Runnable r2 = () -> {
+          productManager.reviewProduct(101, Rating.FOUR_STAR, "good");
+          productManager.reviewProduct(101, Rating.FIVE_STAR, "Nice cake");
 
-    es.submit(r);
+          productManager.reviewProduct(103, Rating.THREE_STAR, "It was kinda cold");
+
+          productManager.printProductReport(101, "es_CO");
+          productManager.printProductReport(102, "en_US");
+          productManager.printProductReport(103, "en_US");
+
+      };
+
+
+    es.submit(r1);
+    es.submit(r2);
     es.shutdown();
 
 
